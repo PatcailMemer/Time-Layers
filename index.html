@@ -401,7 +401,7 @@
         <p><a href="https://patcailmemer.github.io/">Home</a></p>
       </div>
       <div v-if="tab == 3">
-        You have <span class="blur">{{game.achievement.length}}</span>   achievements!<br>Each row of achievements corresponds to a single Prestige Layer in the game
+        You have <span class="blur">{{game.achievement.length}}</span>   achievements!<br>Each row of achievements corresponds to a single Prestige Layer in the game<br>The last three achievement columns are full of rewards!
         <table class="long" style="width:1000px;margin:auto;margin-top:20px">
           <tr v-for="row in [0,1,2,3]">
             <td v-for="number in zeroSeven" style="width:120px" v-if="row<=game.highestReset">
