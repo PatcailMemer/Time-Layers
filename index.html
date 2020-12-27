@@ -1,3 +1,422 @@
-<script>
-location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Time Layers</title>
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/dank.css">
+    
+    <!-- import the webpage's javascript file -->
+    <script src="extend/expantanum.js" defer></script>
+    <script src="extend/ENplus.js" defer></script>
+    <script src="extend/thonkes.js" defer></script>
+    <script src="extend/jquery.js" defer></script>
+    <script src="extend/notify.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="game/newgame.js" defer></script>
+    <script src="game/achieve.js" defer></script>
+    <script src="game/newvue.js" defer></script>
+    <script src="game/saveload.js" defer></script>
+    <script src="game/reset.js" defer></script>
+    <script src="game/toggle.js" defer></script>
+    <script src="game/challenge.js" defer></script>
+    <script src="game/stellarpedia.js" defer></script>
+    <script src="game/layer_1.js" defer></script>
+    <script src="game/layer_2.js" defer></script>
+    <script src="game/layer_3.js" defer></script>
+    <script src="game/layer_4.js" defer></script>
+    <script src="game/script.js" defer></script>
+  </head>  
+  <body>
+    <div id="notifs"></div>
+    <div id="app">
+      <div id="top" class="long block" style="height:100px;font-size:20pt">
+        The universe is <b><span class="blur">{{ game.universeAge.toTime() }}</span></b> old
+        <span style="font-size:12pt"><br>(Each real time second is equivalent to {{overallSpeed.toTime()}} of universe time)</span>
+      </div>
+      <button v-on:click = "tab = 1" class="tabButton">Layers</button>
+      <button v-on:click = "tab = 2" class="tabButton">Options</button>
+      <button v-on:click = "tab = 3" class="tabButton">Achieve</button>
+      <div v-if="tab == 1">
+        <table class="center long" style="height:40px;margin:auto" v-if="!game.toggle.layerDisplay"><tr>
+          <td style="height:40px"><button class="layer1 long" style="height:100%" v-on:click = "layertab = 1">Physical Layer</button></td>
+          <td style="height:40px"><button class="layer2 long" style="height:100%" v-on:click = "layertab = 2" v-if="game.stinc(21)||game.highestReset>=1">Energy Layer</button></td>
+          <td style="height:40px"><button class="layer3 long" style="height:100%" v-on:click = "layertab = 3" v-if="game.stinc(35)||game.highestReset>=2">Stellar Layer</button></td>
+          <td style="height:40px"><button class="layer4 long" style="height:100%" v-on:click = "layertab = 4" v-if="game.NEU.includes(2)||game.highestReset>=3">Perspective Layer</button></td>
+        </tr></table>
+        <button class="long layer1 layerbutton" v-on:click = "(layertab = layertab == 1 ? 0 : 1);move=1" v-if="game.toggle.layerDisplay">Physical Layer</button>
+        <div v-if="layertab == 1" class="layerDiv">
+          Multiplier to all above layers: x{{ timeLayerMult[0] }}<br>
+          This layer is {{ timeLayerSpeed[0] }}x faster than real-time
+          <div style="margin: 15px">
+          <button v-on:click = "layersubtab[0] = 1" class="layer1 laysubtab">Spacetime</button>
+          <button v-on:click = "layersubtab[0] = 2" class="layer1 laysubtab" v-if="game.SEU.includes(1)">Nucleosynthesis</button>
+          </div>
+          <div v-if="layersubtab[0] == 1">
+            <table class="long"><tbody>
+              <tr>
+                <td v-if="game.stinc(31)&&!game.spaceless">
+                You have <span class="blur">{{game.spaceFoam.beautify(2)}}</span>   meters of space foam<br>
+                Space Foam is a timeless quantity
+                    <button class="layer1 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySpaceComp()">Perform a Spatial Compression<br><br>Cost: {{spaceCompCost}}</button>
+                Each spatial compression compresses space by {{spaceCompBase}}%<br>
+                Your {{game.spaceComp.beautify()}} spatial compression compresses spacetime by {{spaceCompEffect}}x
+                  <div v-if="game.spaceComp.gte(13)&&game.stinc(15)">The better formula also multiplies Space Energy by {{game.spaceComp.minus(12).pow(game.stinc(18)?getSpacetimeCompEffect():1).beautify()}}</div>
+                  <table style="width: 370;margin:auto">
+                    <tr>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[0][0]" onclick="buySpaceTimeUpgrade(1,1)">Unlock Spacetime Foam<br><br>Cost: 2 space</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[0][1]" onclick="buySpaceTimeUpgrade(1,2)">Space Compression boost Time Compression (+1.5% each)<br>Cost: 1.25 space</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[0][2]" onclick="buySpaceTimeUpgrade(1,3)">Time Compression is 3x cheaper<br>Cost: 1.5 space</button></td>
+                    </tr>
+                    <tr v-if="game.achievement.includes(17)">
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[0][3]" onclick="buySpaceTimeUpgrade(1,4)">Each "space" or "time" makes compressors 2.25x cheaper<br>Cost: 10 compressors</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[0][4]" onclick="buySpaceTimeUpgrade(1,5)">The upgrade above uses a better formula past 12 compressors<br>Cost: 15 compressors</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[0][5]" onclick="buySpaceTimeUpgrade(1,6)">Square root of time foam multiplies space foam<br>Cost: 45 compressors</button></td>
+                    </tr>
+                    <tr v-if="game.achievement.includes(27)">
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[0][6]" onclick="buySpaceTimeUpgrade(1,7)">Space Compressors boost themselves (+3% each)<br>Cost: 240 compressors</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[0][7]" onclick="buySpaceTimeUpgrade(1,8)">Raise the "better formula" multiplier to your free spatial compressors<br>Cost: 600 compressors</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[0][8]" onclick="buySpaceTimeUpgrade(1,9)">???<br>???</button></td>
+                    </tr>
+                  </table>
+                </td>
+                <td v-if="game.stinc(11)">
+                You have <span class="blur">{{game.spacetime.beautify(game.galChal==1&&game.achievement.includes(37)?Infinity:2)}}</span>   meter-seconds of spacetime foam<br>
+                You are getting {{spacetime.rate.beautify(game.galChal==1&&game.achievement.includes(37)?6:2)}} spacetime foam per second
+                    <button class="layer1 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySpaceTimeComp()">Perform a Spacetime Compression<br><br>Cost: {{spacetime.cost}}</button>
+                Your {{game.spacetimeComp.beautify()}} spacetime compressors gives<br>{{spacetime.effect.beautify(2)}} free spatial compressors and<br>
+                  {{spacetime.effect.gte(10)?spacetime.effect.log10().times(10).beautify(2):spacetime.effect.beautify(2)}} free temporal compressors
+                  <table style="width: 370;margin:auto">
+                    <tr>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[1][0]" onclick="buySpaceTimeUpgrade(2,1)">Unlock the next layer<br><br>Cost: 2e6 spacetime</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[1][1]" onclick="buySpaceTimeUpgrade(2,2)">Spacetime compressors boost themselves (+1.5% each)<br>Cost: 20,000 spacetime</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[1][2]" onclick="buySpaceTimeUpgrade(2,3)">Space Compression is 3x cheaper<br>Cost: Out of Stock</button></td>
+                    </tr>
+                    <tr v-if="game.achievement.includes(17)">
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[1][3]" onclick="buySpaceTimeUpgrade(2,4)">Joule directly multiplies Space Gain<br><br>Cost: 11 compressors</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[1][4]" onclick="buySpaceTimeUpgrade(2,5)">Double the upgrade above this<br>Cost: 14 compressors</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[1][5]" onclick="buySpaceTimeUpgrade(2,6)">Logarithm of spacetime foam adds to Space Compressors % effect<br>Cost: 16 compressors</button></td>
+                    </tr>
+                    <tr v-if="game.achievement.includes(27)">
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[1][6]" onclick="buySpaceTimeUpgrade(2,7)">Gain 1e50x Spacetime<br>Cost: 1e1050 spacetime</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[1][7]" onclick="buySpaceTimeUpgrade(2,8)">The upgrade above is 1.5x better<br>Cost: 1e10500 spacetime</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[1][8]" onclick="buySpaceTimeUpgrade(2,9)">???<br>???</button></td>
+                    </tr>
+                  </table>
+                </td>
+                <td>
+                You have <span class="blur">{{game.timeFoam.beautify(2)}}</span>   seconds of time foam<br>
+                You are getting {{timeFoamSpeed}} time foam per second
+                  <button class="layer1 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buyTempComp()">Perform a Temporal Compression<br><br>Cost: {{tempCompCost}}</button>
+                  <div v-if="game.tempComp.gte(1)||game.highestReset>=1">
+                Each temporal compression compresses time by {{timeCompBase}}%<br>
+                    Your {{game.tempComp.beautify()}} temporal compression compresses time by {{tempCompEffect}}x<div v-if="game.tempComp.gte(10)">Your temporal compressors is softcapped to {{game.tempComp.log10().times(10).min(15).beautify(2)}}</div>
+                  <table style="width: 370;margin:auto">
+                    <tr>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[2][0]" onclick="buySpaceTimeUpgrade(3,1)">Unlock Space Foam<br><br>Cost: 200 time</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[2][1]" onclick="buySpaceTimeUpgrade(3,2)">Time Compression boost Space Compression (+1.5% each)<br>Cost: 500 time</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[2][2]" onclick="buySpaceTimeUpgrade(3,3)">Double the previous upgrade & spacetime gain<br>Cost: 5,000 time</button></td>
+                    </tr>
+                    <tr v-if="game.achievement.includes(17)">
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[2][3]" onclick="buySpaceTimeUpgrade(3,4)">Multiply Joule gain by your amount of row 2 upgrades<br>Cost: 10 compressors</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[2][4]" onclick="buySpaceTimeUpgrade(3,5)">Unlock the next layer<br><br>Cost: 20 compressors</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[2][5]" onclick="buySpaceTimeUpgrade(3,6)">Gain 100% of Space Energy gained on reset per second<br>Cost: Out of Stock</button></td>
+                    </tr>
+                    <tr v-if="game.achievement.includes(27)">
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[2][6]" onclick="buySpaceTimeUpgrade(3,7)">A single Time Compressor boosts Nucleosynthesis<br>Cost: Out of Stock</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[2][7]" onclick="buySpaceTimeUpgrade(3,8)">???<br>???</button></td>
+                      <td><button v-bind:class="row1SpaceTimeUpgrade[2][8]" onclick="buySpaceTimeUpgrade(3,9)">???<br>???</button></td>
+                    </tr>
+                    </table></div>
+                </td>
+              </tr>
+            </tbody></table>
+          </div>
+          <div v-if="layersubtab[0] == 2">
+            Your Nucleosynthesis Age is <span class="blur">{{game.nucleoTime.toTime()}}</span><br>
+            Nucleosynthesis of Deuterium Nuclei occurs between 2m and {{(EN(1200).times(game.SEU.includes(3)?spaceEnergyTimeMult():1).times(game.stinc(37)?getTempCompBase():1)).toTime()}}
+            <br><br>
+            You have <span class="blur">{{nucleoLength().times(1000).beautify(2)}}</span>   mm of deuterium nuclei
+            <br>This adds to your base Space Foam to make it longer
+            <table style="width: 370;margin:auto;margin-top:20px" v-if="game.achievement.includes(27)">
+                    <tr>
+                      <td><button v-bind:class="nucleoUp[0]" onclick="buyNucleoUp(1)">Nucleosynthesis boosts the 6th Spacetime Upgrade by {{getNucleoEffect(1).minus(1).times(100).beautify()}}%<br>Cost: 9e15 mm</button></td>
+                      <td><button v-bind:class="nucleoUp[1]" onclick="buyNucleoUp(2)">Nucleosynthesis boosts spacetime gain by {{getNucleoEffect(2).beautify()}}x<br>Cost: 6e17 mm<br>7 spacetime compressors</button></td>
+                      <td><button v-bind:class="nucleoUp[2]" onclick="buyNucleoUp(3)">Square Galaxy I effect if not in any galaxy or spaceless<br><br>Cost: 1e20 mm</button></td>
+                      <td><button v-bind:class="nucleoUp[3]" onclick="buyNucleoUp(4)">???<br>Cost: 1e25 mm</button></td>
+                    </tr>
+                    </table>
+          </div>
+        </div>
+        <button class="long layer2 layerbutton" v-on:click = "(layertab = layertab == 2 ? 0 : 2);move=2" v-if="(game.stinc(21)||game.highestReset>=1)&&game.toggle.layerDisplay">Energy Layer</button>
+        <div v-if="layertab == 2">
+          Multiplier to all above layers: x{{ timeLayerMult[1] }}<br>
+          This layer is {{ timeLayerSpeed[1] }}x faster than real-time
+          <div style="margin: 15px">
+          <button v-on:click = "layersubtab[1] = 1" class="layer2 laysubtab">Space Energy</button>
+          <button v-on:click = "layersubtab[1] = 4" class="layer2 laysubtab" v-if="game.SEU.includes(5)||game.highestReset>=2">Automation</button>
+          <button v-on:click = "layersubtab[1] = 2" class="layer2 laysubtab" v-if="game.SEU.includes(12)">Normal Energy</button>
+          <button v-on:click = "layersubtab[1] = 3" class="layer2 laysubtab" v-if="game.NEU.includes(1)">Supernova!</button>
+          </div>
+          <div v-if="layersubtab[1] == 1">
+          You have <span class="blur">{{game.spaceEnergy.beautify()}}</span>   Joule of space energy
+          <br>This gives you the first {{game.spaceEnergy.min(3).beautify()}} spacetime upgrades for free {{game.SEU.includes(4)?"and also makes the third upgrade in each Row 1 set " + spaceEnergyRow1Mult().minus(1).times(100).beautify(2) + "% stronger":""}}
+          <br>It also multiplies the above layer speed {{game.SEU.includes(3)?"and the nucleosynthesis cap ":""}}by {{spaceEnergyTimeMult().beautify(2)}}
+            <button class="squareMediumButton layer2" style="margin-top:30px;margin-bottom:30px" onclick="if(canPrestige(1)){reset(1);game.spaceless=false}">{{!canPrestige(1)?"Reach 1,000,000 Spacetime to prestige!":"Reset for " + getPrestige(1).beautify() + (game.spaceless?" Normal Energy":" Space Energy")}}</button>
+          <table style="width: 370px;margin:auto">
+                    <tr>
+                      <td><button v-bind:class="row2SEU[0]" onclick="buySEU(1)">Unlock Nucleosynthesis<br><br>Cost: 1 SE</button></td>
+                      <td><button v-bind:class="row2SEU[1]" onclick="buySEU(2)">Keep all bought upgrades upon reset<br>Cost: 5 SE</button></td>
+                      <td><button v-bind:class="row2SEU[2]" onclick="buySEU(3)">Excess space energy boosts time and nucleosynthesis<br>Cost: 100 SE</button></td>
+                      <td><button v-bind:class="row2SEU[3]" onclick="buySEU(4)">Excess space energy boosts the third upgrade in each Row 1 set<br>Cost: 1,000 SE</button></td>
+                    </tr>
+                    <tr>
+                      <td><button v-bind:class="row2SEU[4]" onclick="buySEU(5)">Improve Space Energy Formula and unlock Automation<br>(x^1/6 → x^1/5)<br>Cost: 1e5 SE</button></td>
+                      <td><button v-bind:class="row2SEU[5]" onclick="buySEU(6)">Nucleosynthesis is raised to the ^1.5 and is twice as fast<br>Cost: 1e10 SE</button></td>
+                      <td><button v-bind:class="row2SEU[6]" onclick="buySEU(7)">The upgrade above is 3x as powerful<br>Cost: 1e15 SE</button></td>
+                      <td><button v-bind:class="row2SEU[7]" onclick="buySEU(8)">The upgrade above is 2x as powerful<br>Cost: 1e25 SE</button></td>
+                    </tr>
+                    <tr>
+                      <td><button v-bind:class="row2SEU[8]" onclick="buySEU(9)">The fourth Space Foam Upgrade is 10x better<br>Cost: 1e50 SE</button></td>
+                      <td><button v-bind:class="row2SEU[9]" onclick="buySEU(10)">Nucleosynthesis is raised to the ^2 and is twice as fast<br>Cost: 1e100 SE</button></td>
+                      <td><button v-bind:class="row2SEU[10]" onclick="buySEU(11)">The upgrade above is 3x as powerful<br>Cost: 1e200 SE</button></td>
+                      <td><button v-bind:class="row2SEU[11]" onclick="buySEU(12)">The upgrade above is 2x as powerful and unlock Normal Energy<br>Cost: 1e1000 SE</button></td>
+                    </tr>
+                    </table>
+          </div>
+          <div v-if="layersubtab[1] == 2">
+            You have <span class="blur">{{game.normalEnergy.beautify()}}</span>   Joule of normal energy
+            
+            <br>This makes the third upgrade in each Row 2 set {{normalEnergyRow2Mult().minus(1).times(100).beautify(2)}}% stronger
+            <br>It also multiplies the above layer speed {{false?"and the nucleosynthesis cap ":""}}by {{normalEnergyTimeMult().beautify(2)}}
+            
+            
+            <button class="squareMediumButton layer2" style="margin-top:30px;margin-bottom:30px" onclick="reset(1);game.spaceless=!game.spaceless">{{game.spaceless?(canPrestige(1)?"Reset for " + getPrestige(1).beautify() + " Normal Energy":"Exit Spaceless Early"):"Remove Space Compressors to go Spaceless"}}</button>
+            
+            Whenever you go Spaceless, your space compressors are disabled and spacetime is divided by 1e60<br>
+            <b style="color:red">WARNING: The volatile nature of normal energy caps your normal energy to {{game.galaxies[0].add(1).add(game.perspectivePower.floor()).beautify()}}</b>
+            
+            <table style="width: 370px;margin:auto">
+                    <tr>
+                      <td><button v-bind:class="row2NEU[0]" onclick="buyNEU(1)">Unlock Supernovas<br><br>Cost: 1e8 NE</button></td>
+                      <td><button v-bind:class="row2NEU[1]" onclick="buyNEU(2)">Unlock the next layer<br><br>Cost: 5 NE</button></td>
+                      <td><button v-bind:class="row2NEU[2]" onclick="buyNEU(3)">Excess normal energy boosts time<br>Cost: 100 NE</button></td>
+                      <td><button v-bind:class="row2NEU[3]" onclick="buyNEU(4)">Excess normal energy boosts the third upgrade in each Row 2 set<br>Cost: 1,000 NE</button></td>
+                    </tr>
+                    </table>
+            
+          </div>
+          <div v-if="layersubtab[1] == 3">
+            You have <span class="blur">{{game.starTypes.beautify()}}</span>   different stars, with a best of <span class="blur">{{game.bestStarTypes.beautify()}}</span> which is capping your supernovas
+            <br>Blow them up for a temporary boost!
+            <div class="center block" v-if="game.achievement.includes(47)">
+            <button class="layer2" onclick="toggle('resetSupernova')">Reset Supernovas upon Stellar Reset: {{onOff('resetSupernova')}}</button>
+            <button class="layer2" onclick="game.supernovaMode=(game.supernovaMode+1)%2">Current Mode: +{{game.supernovaMode==0?1:'MAX'}} level</button>
+            </div>
+            <table class="center" style="margin-top:20px;margin-bottom:20px"><tr>
+              <td><button class="squareMediumButton layer2" onclick="superNova(1)">Spatial Launch<br><br>Spatial Compressor is x{{getSuperNovaEffect(1).beautify(2)}}<br><br>Level: {{game.supernova[0]}}{{game.bestStarTypes.gte(40)?"+"+game.supernova[3]:""}}</button></td>
+              <td><button class="squareMediumButton layer2" onclick="superNova(2)" v-if="game.bestStarTypes.gte(30)">Spacetime Boost<br><br>Gain {{getSuperNovaEffect(2).beautify()}}x spacetime<br><br><br>Level: {{game.supernova[1]}}{{game.bestStarTypes.gte(40)?"+"+game.supernova[3]:""}}</button></td>
+              <td><button class="squareMediumButton layer2" onclick="superNova(3)" v-if="game.bestStarTypes.gte(35)">Perspective Push<br><br>Gain {{getSuperNovaEffect(3).beautify()}}x perspective power<br><br>Level: {{game.supernova[2]}}{{game.bestStarTypes.gte(40)?"+"+game.supernova[3]:""}}</button></td>
+              <td><button class="squareMediumButton layer2" onclick="superNova(4)" v-if="game.bestStarTypes.gte(40)">Everything Else<br><br>Gain {{getSuperNovaEffect(4)}} free levels of all previous supernovas<br>Level: {{game.supernova[3]}}</button></td>
+              
+              
+            </tr></table>
+            
+            <b>Next Supernova gets unlocked at {{(game.bestStarTypes.gte(30)?(game.bestStarTypes.gte(35)?(game.bestStarTypes.gte(40)?50:40):35):30)}} total stars!</b><br>
+            The product of the first supernova's effect and the stellar multiplier is {{getStarEffect().times(game.galChal==2?1:getSuperNovaEffect(1)).beautify(2)}}x (can you maximize this?)<br>
+            <span v-if="game.bestStarTypes.gte(30)">The second supernova doesn't work if you're in Spaceless<span v-if="game.achievement.includes(47)">, but it does work in all of the galaxies</span><span v-if="!game.achievement.includes(47)"> or in Galaxies 1 to 3</span><br></span>
+            <span v-if="game.achievement.includes(47)">Your QoL achievement causes the star effect to be based on your best stars, meaning sacraficing stars will not hurt your stellar multiplier<br></span>
+          </div>
+          <div v-if="layersubtab[1] == 4">
+            Spatial Compressor Autobuyer Maximum: <input v-model="game.autoComp.space"><br>
+            Spacetime Compressor Autobuyer Maximum: <input v-model="game.autoComp.spacetime"><br>
+            Temporal Compressor Autobuyer Maximum: <input v-model="game.autoComp.temp"><br><br>
+            Type in a number to set up a maximum of which these autobuyers are going to work up to<br>Set the number to 0 to disable the autobuyer. Set the number to -1 if you want to remove the autobuyer's limit
+          </div>
+        </div>
+        <button class="long layer3 layerbutton" v-if="(game.stinc(35)||game.highestReset>=2)&&game.toggle.layerDisplay" v-on:click = "(layertab = layertab == 3 ? 0 : 3);move=3">Stellar Layer</button>
+        <div v-if="layertab == 3">
+          Multiplier to all above layers: x{{ timeLayerMult[2] }}<br>
+          This layer is {{ timeLayerSpeed[2] }}x faster than real-time
+          <div style="margin: 15px">
+          <button v-on:click = "layersubtab[2] = 1" class="layer3 laysubtab">Stellar Formation</button>
+          <button v-on:click = "layersubtab[2] = 3" class="layer3 laysubtab">Stellarpedia</button>
+          <button v-on:click = "layersubtab[2] = 2" class="layer3 laysubtab" v-if="starMile(15)">Unique Galaxies</button>
+          </div>
+          <div v-if="layersubtab[2] == 1">
+          The universe has <span class="blur">{{game.starTypes.beautify()}}</span>   different types of stars, with a best of <span class="blur">{{game.bestStarTypes.beautify()}}</span>   star types
+          <!-- <br>This gives the first {{game.bestStarTypes.min(12).beautify()}} Space Energy Upgrades, all of the Row 1 upgrades, and the first {{game.bestStarTypes.div(2).floor().min(3).beautify()}} row 2 upgrades for free -->
+          <br>This multiplies Spatial Compression effect by {{getStarEffect().beautify(2)}}
+            <button class="squareMediumButton layer3" style="margin-top:30px;margin-bottom:30px" onclick="if(canPrestige(2)||game.galChal!=0){reset(2)};game.galChal=0">{{!canPrestige(2)?(game.galChal!=0?"You're currently in a galaxy. Click to exit early.":"Reach " + getStarTypeCost(game.starTypes).beautify() + " years per real time second to gain a new star"):"Reset for a new type of star!"}}
+              <span v-if="canPrestige(2)&&game.galChal==0&&game.PEU.includes(2)"><br>{{game.starTypes}} → {{getPrestige(2)}}<br><br>Next star at {{getStarTypeCost(getPrestige(2)).beautify()}}<br>years per sec</span></button>
+          </div>
+          <div v-if="layersubtab[2] == 2">
+            Create galaxies under the certain conditions to earn them! These galaxies give a boost in different ways!
+            <br>Your {{game.galaxies[0].beautify()}} Galaxy I increases normal energy cap by {{game.galaxies[0].beautify()}}
+            <br>You're currently {{game.galChal==0?'not in a Galaxy':'in Galaxy ' + game.galChal}}
+            <button class="layer3 block center" style="margin-top:10px;margin-bottom:10px" onclick="if(game.galChal!=0){reset(2);game.galChal=0}">Click here to exit your galaxy</button>
+            <table class="long" style="margin-top:20px;margin-bottom:20px">
+              <tr>
+                <td><button class="challengeButton layer3" onclick="enterGalChal(1)">Galaxy I<br>The temporal and nucleosynthesis effects of space energy is useless, and gain 1e50x less spacetime<br><br>Goal: {{getStarTypeCost(game.galaxies[0])}} years/sec<br>Completed: {{game.galaxies[0]}}<br>Reward: Gain {{game.galaxies[0].pow(getNucleoEffect(3))}} free applications of Nucleosynthesis Upgrade #2</button></td>
+                <td><button class="challengeButton layer3" onclick="enterGalChal(2)" v-if="starMile(20)" style="font-size:10pt">Galaxy II<br>Only your star types increases the compressor's effect with squared effect. Space Energy no longer boost Space Foam. Disable Normal Energy. Cap Time Compressors to 21<br><br>Goal: {{getStarTypeCost(game.galaxies[1])}} years/sec<br>Completed: {{game.galaxies[1]}}<br>Reward: Raise the Stellar effect to the {{EN(2).minus(EN(1).div(game.galaxies[1].add(1))).beautify(3)}}</button></td>
+              </tr>
+              <tr>
+                <td><button class="challengeButton layer3" onclick="enterGalChal(3)" v-if="starMile(24)">Galaxy III<br>You can't gain any Space Energy nor Normal Energy, and their effects are useless. Cap Time Compressors to 19, but double overall speed<br><br>Goal: {{getStarTypeCost(game.galaxies[2])}} years/sec<br>Completed: {{game.galaxies[2]}}<br>Reward: Increase the Space Energy exponent gain by +{{game.galaxies[2].div(100).beautify(2)}}</button></td>
+                <td><button class="challengeButton layer3" onclick="enterGalChal(4)" style="font-size:10pt" v-if="starMile(32)">Galaxy IV<br>Your space foam is capped to your normal energy, Time Compressors are 10x as expensive and capped to 18, but the second supernova upgrade works<br><br>Goal: {{getStarTypeCost(game.galaxies[3])}} years/sec<br>Completed: {{game.galaxies[3]}}<br>Reward: Increase the base of the third supernova by +{{game.galaxies[3]}}</button></td>
+              </tr>
+            </table>
+            (TIP: If you need to restart your current stellar run for any reason, you can enter a galaxy and then quickly exit)
+          </div>
+          <div v-if="layersubtab[2] == 3">
+            Your best amount of stars was <span class="blur">{{game.bestStarTypes.beautify()}}</span> stars. Collect them all in order to gain unique advantages!<br>The stars that are brighter than usual are the ones that yield a boost
+            <table class="long" style="width:1000px;margin:auto;margin-top:20px">
+              <tr v-for="row in zeroSeven">
+                <td v-for="number in zeroSeven" style="width:120px">
+                  <div v-bind:class="'achievement ' + (starMile(Number(row)*8+Number(number)+1)?(stellarpedia[row][number]==''?'darkgreen':'green'):(stellarpedia[row][number]==''?'darkgrey':'grey'))" v-bind:tooltip="(stellarpedia[row][number]!=''?stellarpedia[row][number]:'none')" >
+                    {{"Star " + (Number(row)*8+Number(number)+1)}}
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <button class="long layer4 layerbutton" v-if="(game.NEU.includes(2)||game.highestReset>=3)&&game.toggle.layerDisplay" v-on:click = "(layertab = layertab == 4 ? 0 : 4);move=4">Perspective Layer</button>
+        <div v-if="layertab == 4">
+          Multiplier to all above layers: x{{ timeLayerMult[3] }}<br>
+          This layer is {{ timeLayerSpeed[3] }}x faster than real-time
+          <div style="margin: 15px">
+          <button v-on:click = "layersubtab[3] = 1" class="layer4 laysubtab">Perspective Power</button>
+          <button v-on:click = "layersubtab[3] = 2" class="layer4 laysubtab" v-if="game.PEU.includes(8)">Super Compressors</button>
+          </div>
+          <div v-if="layersubtab[3] == 1">
+          The universe has <span class="blur">{{game.perspectivePoint.beautify()}}</span>   points of perspective
+          <br>This generates {{getPerspectiveRate().beautify()}} Perspective Power per second (boosted by space compressors past 1 point)
+          <button class="squareMediumButton layer4" style="margin-top:30px;margin-bottom:30px" onclick="canPrestige(3)?reset(3):0">{{!canPrestige(3)?"Reach " + PERSPECTIVE_REQ[game.perspectivePoint.toNumber()] + " stars to gain a Perspective Point":"Reset for a Perspective Point!"}}</button>
+          You have <span class="blur">{{game.perspectivePower.beautify()}}</span>   perspective power<br>
+          This multiplies Space Energy gain by x^5, multiplies<br>spacetime foam by x, and adds directly to your Normal Energy Cap<br>
+          Also, by unlocking this layer, you keep the first column of each compressor's upgrade
+          <table style="margin:auto;width: 370px;">
+                    <tr>
+                      <td><button v-bind:class="row4PEU[0]" onclick="buyPEU(1)">Keep Triangular Numbered star milestones up to 30<br><br>Cost: 100 PPW</button></td>
+                      <td><button v-bind:class="row4PEU[1]" onclick="buyPEU(2)">You can buy max star types<br><br>Cost: 1,000 PPW</button></td>
+                      <td><button v-bind:class="row4PEU[2]" onclick="buyPEU(3)">Autobuy nucleosynthesis and space energy, no cost<br>Cost: 100,000 PPW</button></td>
+                      <td><button v-bind:class="row4PEU[3]" onclick="buyPEU(4)">Keep all nucleosynthesis and normal energy upgrades<br>Cost: 1e7 PPW</button></td>
+                    </tr>
+                  <tr>
+                      <td><button v-bind:class="row4PEU[4]" onclick="buyPEU(5)">Keep all of the base upgrades<br><br>Cost: 1e10 PPW</button></td>
+                      <td><button v-bind:class="row4PEU[5]" onclick="buyPEU(6)">Keep your best star types through Perspectives<br><br>Cost: 1e15 PPW</button></td>
+                      <td><button v-bind:class="row4PEU[6]" onclick="buyPEU(7)">You keep your galaxies<br><br>Cost: 1e25 PPW</button></td>
+                      <td><button v-bind:class="row4PEU[7]" onclick="buyPEU(8)">Unlock Super-compressors<br><br>Cost: 1e50 PPW</button></td>
+                    </tr>
+             <tr>
+                      <td><button v-bind:class="row4PEU[8]" onclick="buyPEU(9)">Unlock the next layer<br><br>Cost: 1e100 PPW</button></td>
+                      <td><button v-bind:class="row4PEU[9]" onclick="buyPEU(10)">???</button></td>
+                      <td><button v-bind:class="row4PEU[10]" onclick="buyPEU(11)">???</button></td>
+                      <td><button v-bind:class="row4PEU[11]" onclick="buyPEU(12)">???</button></td>
+            </tr>
+                    </table>
+            If you made it and bought the 1e100 PPW upgrade, you're at the endgame. Try to reach 1e42 Normal Energy at this point until the next update comes out, because that is the requirement of the next layer!
+          </div>
+          <div v-if="layersubtab[3] == 2">
+            Each one of these supercompressors perform a perspective reset when bought!
+            <table class="long"><tbody>
+              <tr>
+                <td v-if="false">
+                You have <span class="blur">{{game.spaceComp.beautify()}}</span>   Spatial Compressors<br>
+                    <button class="layer4 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySpaceComp()">Perform a Spatial Compression<br><br>Cost: {{spaceCompCost}}</button>
+                Each spatial compression compresses space by {{spaceCompBase}}%<br>
+                Your {{game.spaceComp.beautify()}} spatial compression compresses spacetime by {{spaceCompEffect}}x
+                  <div v-if="game.spaceComp.gte(13)&&game.stinc(15)">The better formula also multiplies Space Energy by {{game.spaceComp.minus(12).pow(game.stinc(18)?getSpacetimeCompEffect():1).beautify()}}</div>
+                  <table style="width: 370;margin:auto">
+                    <tr>
+                      <td><button v-bind:class="row4Supercomp[0][0]" onclick="buySpaceTimeUpgrade(1,1)">Unlock Spacetime Foam<br><br>Cost: 2 space</button></td>
+                      <td><button v-bind:class="row4Supercomp[0][1]" onclick="buySpaceTimeUpgrade(1,2)">Space Compression boost Time Compression (+1.5% each)<br>Cost: 1.25 space</button></td>
+                      <td><button v-bind:class="row4Supercomp[0][2]" onclick="buySpaceTimeUpgrade(1,3)">Time Compression is 3x cheaper<br>Cost: 1.5 space</button></td>
+                    </tr>
+                  </table>
+                </td>
+                <td v-if="false">
+                You have <span class="blur">{{game.spacetimeComp.beautify()}}</span>   Spacetime Compressors<br>
+                    <button class="layer4 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySpaceTimeComp()">Perform a Spacetime Compression<br><br>Cost: {{spacetime.cost}}</button>
+                Your {{game.spacetimeComp.beautify()}} spacetime compressors gives<br>{{spacetime.effect.beautify(2)}} free spatial compressors and<br>
+                  {{spacetime.effect.gte(10)?spacetime.effect.log10().times(10).beautify(2):spacetime.effect.beautify(2)}} free temporal compressors
+                  <table style="width: 370;margin:auto">
+                    <tr>
+                      <td><button v-bind:class="row4Supercomp[1][0]" onclick="buySpaceTimeUpgrade(2,1)">Unlock the next layer<br><br>Cost: 2e6 spacetime</button></td>
+                      <td><button v-bind:class="row4Supercomp[1][1]" onclick="buySpaceTimeUpgrade(2,2)">Spacetime compressors boost themselves (+1.5% each)<br>Cost: 20,000 spacetime</button></td>
+                      <td><button v-bind:class="row4Supercomp[1][2]" onclick="buySpaceTimeUpgrade(2,3)">Space Compression is 3x cheaper<br>Cost: Out of Stock</button></td>
+                    </tr>
+                  </table>
+                </td>
+                <td>
+                You have <span class="blur">{{game.tempComp.beautify()}}</span>   Temporal Compressors<br>
+                  <button class="layer4 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySuperTempComp()">Perform a Temporal Supercompress<br><br>Need: {{superComp.tempCost().beautify()}} compressors</button>
+                  <div v-if="game.superComp.temp.gte(1)||game.highestReset>=4">
+                Your {{game.superComp.temp.beautify()}} temporal supercompressor yields<br>{{inAnyGalChal()?"0.00":game.superComp.temp.beautify(2)}} free temporal compressors in non-galaxies
+                  <table style="width: 370;margin:auto" v-if="false">
+                    <tr>
+                      <td><button v-bind:class="row4Supercomp[2][0]" onclick="buySpaceTimeUpgrade(3,1)">Unlock Space Foam<br><br>Cost: 200 time</button></td>
+                      <td><button v-bind:class="row4Supercomp[2][1]" onclick="buySpaceTimeUpgrade(3,2)">Time Compression boost Space Compression (+1.5% each)<br>Cost: 500 time</button></td>
+                      <td><button v-bind:class="row4Supercomp[2][2]" onclick="buySpaceTimeUpgrade(3,3)">Double the previous upgrade & spacetime gain<br>Cost: 5,000 time</button></td>
+                    </tr>
+                    </table></div>
+                </td>
+              </tr>
+            </tbody></table>
+            
+          </div>
+        </div>
+        <button class="long layer6 layerbutton" v-if="false">Remnent Layer</button>
+        <button class="long layer7 layerbutton" v-if="false">Degenerate Layer</button>
+        <button class="long layer8 layerbutton" v-if="false">Entropy Layer</button>
+        <button class="long layer9 layerbutton" v-if="false">Black Hole Layer</button>
+      </div>
+      <div v-if="tab == 2">
+        <button onclick="save()">Save</button>
+        <button onclick="copyStringToClipboard(btoa(JSON.stringify(game)))">Export</button>
+        <button onclick="
+          let loadgame = '';
+          loadgame = JSON.parse(atob(prompt('Paste in your save WARNING: WILL OVERWRITE YOUR CURRENT SAVE, paste in nothing if you want to keep your current save')));
+          if (prompt !== '' && loadgame !== '') {
+            load(loadgame);
+            $.notify('Import successful!','success')}">Import</button>
+        <button onclick="
+                        let deathPrompt = '';
+                        deathPrompt = prompt('Are you sure you want to reset your game? Type in the phrase \'Time Layers was the worst game I ever played\' if you want to reset your entire game')
+                        if (deathPrompt == 'Time Layers was the worst game I ever played') {
+                           reset(Infinity);
+                           $.notify('Hard Reset Sucessful!','success')
+                         }
+                         
+                         ">Ultimate Hard Reset</button>
+        <button onclick="toggle('layerDisplay')">Layer Display Method: {{game.toggle.layerDisplay?'Stacked':'Tabs'}}</button>
+        <button onclick="toggle('autoscroll')">Autoscroll upon switching layer tabs: {{onOff('autoscroll')}}</button>
+        <p>The game is autosaved every 10 seconds. Tip: By clicking a layer tab twice in Stacked display will collapse that layer, revealing the entire set of layers. You can also changed the layer display method to tabs display, although this is uglier.</p>
+        <p><a href="https://discord.gg/RerPeNA">Join the Discord</a></p>
+        <p><a href="https://patcailmemer.github.io/">Home</a></p>
+      </div>
+      <div v-if="tab == 3">
+        You have <span class="blur">{{game.achievement.length}}</span>   achievements!<br>Each row of achievements corresponds to a single Prestige Layer in the game
+        <table class="long" style="width:1000px;margin:auto;margin-top:20px">
+          <tr v-for="row in [0,1,2,3]">
+            <td v-for="number in zeroSeven" style="width:120px" v-if="row<=game.highestReset">
+            <div v-bind:class="'achievement ' + (game.achievement.includes(Number(row)*10+Number(number)+11)?'green':'grey')" v-bind:tooltip="achieveData[row].tooltip[number]" >
+              {{achieveData[row].name[number]}}
+            </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      
+      
+      
+      
+      
+    </div>
+  </body>
+</html>

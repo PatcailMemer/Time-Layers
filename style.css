@@ -1,0 +1,245 @@
+/* CSS files add styling rules to your content */
+
+body {
+  transition-duration: 0.2s;
+	text-align: center;
+	font-family: monospace;
+  /*font-weight: 700;*/
+	table-align: center;
+	margin: auto;
+}
+
+
+
+.long {
+  width:100%;
+}
+
+.none {
+  display: none !important
+}
+
+.block {
+  display: block
+}
+
+.bigblur {
+  text-shadow: 5px 5px 5px #ffffff;
+  font-weight:bold;
+}
+
+.blur {
+  text-shadow: 5px 5px 5px #ffffff;
+  font-weight:bold;
+  font-size:20pt;
+}
+
+button {
+  font-family: sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tabButton {
+   font-family: sans-serif;
+  color: #000000;
+  background: #FFFFFF;
+  border-radius: 5px;
+  border-color: #000000;
+  border-weight: 10px;
+  cursor: pointer;
+  width: 120px;
+  height: 40px;
+  font-size: 15pt;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.locked {
+  color: #000000;
+  background: #FFFFFF;
+  cursor: default !important;
+}
+
+/*
+button:not(.tabButton){
+  font-family: sans-serif;
+  color: #000000;
+  background: #FFFFFF;
+  border-radius: 2px;
+  border-color: #000000;
+  border-width:1.5px;
+  cursor: pointer;
+  transition-duration: 0.1s;
+  font-size: 20px;
+  height: 60px;
+}
+*/
+
+.layerbutton {
+  height:40px;
+  display: block;
+  border-radius: 5px;
+  border-weight: 10px;
+  border-width: 3px;
+  border-style: solid;
+  font-size: 15pt;
+  font-weight: bold;
+  margin: 5px;
+  cursor: pointer;
+}
+.layer1 {
+  background-color: #617ade;
+  border-color: #0000ff;
+	color: #0000ff;
+  border-style: solid;
+}
+
+.layer2 {
+  background-color: #000000;
+  border-color: #ffff00;
+	color: #ffff00;
+  border-style: solid;
+}
+
+.layer3 {
+  background-color: yellow;
+  border-color: orange;
+	color: black;
+  border-style: solid;
+}
+
+.layer4 {
+	background-color: #7fbf7f;
+	border-color: #406040;
+	color: #203020;
+  border-style: solid;
+}
+
+.layerDiv {
+  width:100%;
+  margin-bottom: 50px;
+}
+
+.laysubtab {
+  height: 30px;
+  font-size: 12pt;
+  font-weight: bold;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+
+.notification {
+  background:yellow;
+  text-align:center;
+  color:black;
+  width: 200px;
+  height: 40px;
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#notifs {
+  float: right;
+  
+}
+
+.squareMediumButton {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  display: block;
+  font-size:12pt;
+}
+
+.challengeButton {
+  width: 300px;
+  height: 200px;
+  margin: auto;
+  font-size:12pt;
+}
+
+.upgradeButton {
+  width: 120px;
+  height: 120px;
+  font-size:10pt;
+  border-radius: 5px;
+  border-weight: 10px;
+}
+
+.bought {
+  color: #000000;
+  background: #00FF00;
+  border-radius: 2px;
+  border-color: #000000;
+  cursor: default !important;
+}
+
+.achievement {
+  width:120px;
+  height:120px;
+  background: grey;
+  border-color: #00FF00;
+  border-radius: 5px;
+  border-weight: 10px;
+}
+
+[tooltip] {
+	position: relative;
+	z-index: 2;
+}
+
+[tooltip]:before,
+[tooltip]:after {
+	visibility: hidden;
+	opacity: 0;
+	pointer-events: none;
+}
+
+[tooltip]:before {
+	font-size: 12px;
+	position: absolute;
+	top: -10px;
+	margin-bottom: -80px;
+	padding: 10px;
+	border-radius: 6px;
+  width: 100px;
+	background-color: #000;
+	color: #fff;
+	content: attr(tooltip);
+	transition-duration: 0.2s;
+	z-index: 4;
+  text-align: center;
+  left: calc(50%);
+  -ms-transform: translate(-50%);
+  transform: translate(-50%);
+}
+
+[tooltip]:hover:before {
+	visibility: visible;
+	opacity: 1;
+  z-index:5;
+}
+
+.green {
+  background: green !important
+}
+
+.grey {
+  background:grey
+}
+
+.darkgreen {
+  background: darkgreen;
+}
+
+.darkgrey {
+  background: dimgray
+}
+
+.center {
+  margin: auto
+}
+
