@@ -81,7 +81,7 @@ const stellarpedia = [
   ]
 ]
 
-function toRoman(x) {
+function toRoman(x) { //tf is this
   let counter = Math.min(x,80)
   let running = ""
   if (counter>=50) {
@@ -92,15 +92,7 @@ function toRoman(x) {
     counter -= 40
     running += "XL"
   }
-  if (counter>=10) {
-    counter -= 10
-    running += "X"
-  }
-  if (counter>=10) {
-    counter -= 10
-    running += "X"
-  }
-  if (counter>=10) {
+  while (counter >= 10) {
     counter -= 10
     running += "X"
   }

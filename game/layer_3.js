@@ -3,14 +3,23 @@
 const TRIANGULAR_NUMBERS=[1,3,6,10,15,21,28]
 
 function starMile(x) {
-  if (game.bestStarTypes.gte(x)) {
-    return true
-  }
-  if (game.PEU.includes(1)&&TRIANGULAR_NUMBERS.includes(x)) {
-    return true
+  return game.bestStarTypes.gte(x) || game.PEU.includes(1)&&TRIANGULAR_NUMBERS.includes(x) //checkTriangle(x)
+}
+
+// the below function could be used to dynamically calculate if x is triangular, 
+//but the above function is called wayyyy too much for it to be efficient. -Anthios
+/* 
+function checkTriangle(x) {
+  if (x <= 0 || typeOf(x) !== "number") return false
+  let i = 0, j = 0
+  while (j <= x) {
+    i++
+    j += i
+    if (j === x) return true
   }
   return false
 }
+*/
 
 function getStarEffect() {
   return EN(1)

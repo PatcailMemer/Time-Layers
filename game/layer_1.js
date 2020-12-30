@@ -62,10 +62,7 @@ function getSpacetimeCompEffect() {
 }
 
 function caplog10(x) {
-  if (x.gte(10)) {
-    return x.log10().times(10)
-  }
-  return x
+  return x.gte(10) ? x.log10().times(10) : x
 }
 
 function buySpaceComp(bulk=1) {
@@ -91,10 +88,7 @@ function getTempCompBase() {
 }
 
 function caplog10square(x) {
-  if (x.lte(12)) {
-    return x
-  }
-  return x.log10().pow(2).times(10)
+  return x.lte(12) ? x : x.log10().pow(2).times(10)
 }
 
 function getSpaceCompEffect() {
@@ -102,9 +96,7 @@ function getSpaceCompEffect() {
 }
 
 function getSpaceCompBase() {
-  if (inGalChal(2)) {
-    return getStarEffect().times(1.1)
-  }
+  if (inGalChal(2)) return getStarEffect().times(1.1)
   return EN(1.1)
     .add(stinc(32)?game.tempComp.times(0.015*(1+stinc(33))).times(stinc(33)?getSpaceEnergyRow1Mult():1):0)
     .add(game.achievement.includes(18)?0.09:0)
@@ -119,9 +111,7 @@ function getSpaceCompBase() {
 }
 
 function canBuySpaceTimeUpgrade(x,y) {
-  if (game.spaceTimeFoamUpgrade.includes(x+""+y)) {
-    return false
-  }
+  if (game.spaceTimeFoamUpgrade.includes(x+""+y)) return false
   let currency = ""
   switch(x) {
     case 1:
@@ -136,22 +126,18 @@ function canBuySpaceTimeUpgrade(x,y) {
   }
   if (y>=4) {
     switch(x) {
-    case 1:
-      currency="spaceComp"
-      break
-    case 2:
-      if (y<=6) {
-      currency="spacetimeComp"
-      }
-      break
-    case 3:
-      currency="tempComp"
+      case 1:
+        currency="spaceComp"
         break
-  }}
-  if (game[currency].gte(SPACETIME_UPGRADE_COST[x-1][y-1])) {
-    return true
+      case 2:
+        if (y<=6) currency="spacetimeComp"
+        break
+      case 3:
+        currency="tempComp"
+        break
+    }
   }
-  return false
+  return game[currency].gte(SPACETIME_UPGRADE_COST[x-1][y-1])
 }
 
 function buySpaceTimeUpgrade(x,y) {
@@ -165,7 +151,7 @@ function buySpaceTimeUpgrade(x,y) {
         currency="spacetime"
         break
       case 3:
-      currency="timeFoam"
+        currency="timeFoam"
         break
   }
   if (y>=4) {
@@ -174,14 +160,13 @@ function buySpaceTimeUpgrade(x,y) {
       currency="spaceComp"
       break
     case 2:
-      if (y<=6) {
-      currency="spacetimeComp"
-      }
+      if (y<=6) currency="spacetimeComp"
       break
     case 3:
       currency="tempComp"
-        break
-    }}
+      break
+    }
+  }
   game[currency]=game[currency].minus(SPACETIME_UPGRADE_COST[x-1][y-1])
   game.spaceTimeFoamUpgrade.push(x+""+y)
   }
