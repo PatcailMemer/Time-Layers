@@ -1,21 +1,15 @@
 function inGalChal(x) {
-  if (x==game.galChal) {
-    return true
-  }
-  return false
+  return x === game.galChal
 }
 
 function inAnyGalChal() {
-  if (0!=game.galChal) {
-    return true
-  }
-  return false
+  return 0 !== game.galChal
 }
 
 function enterGalChal(x) {
   if (!inAnyGalChal()) {
     reset(2)
-    game.galChal=x
+    game.galChal = x
   }
 }
 

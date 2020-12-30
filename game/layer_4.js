@@ -1,14 +1,8 @@
-const PERCEPTION_UPGRADE_COST = [1e2, 1e3, 1e5, 1e7, 1e10,1e15,1e25, 1e50, 1e100]
+const PERCEPTION_UPGRADE_COST = [1e2, 1e3, 1e5, 1e7, 1e10, 1e15, 1e25, 1e50, 1e100]
 
 
 function canBuyPEU(x) {
-  if (game.PEU.includes(x)) {
-    return false
-  }  
-  if (game.perspectivePower.gte(PERCEPTION_UPGRADE_COST[x-1])) {
-    return true
-  }
-  return false
+  return !game.PEU.includes(x) && game.perspectivePower.gte(PERCEPTION_UPGRADE_COST[x-1])
 }
 
 function buyPEU(x) {
@@ -31,6 +25,6 @@ function getSuperTempCompCost() {
 
 function getPerspectiveRate() {
   return game.spaceComp.add(1).pow(game.perspectivePoint.minus(1))
-                                                      .times(getSuperNovaEffect(3))
-                                                      .times(game.normalEnergy.add(10).log10().pow(game.galaxies[4]))
+    .times(getSuperNovaEffect(3))
+    .times(game.normalEnergy.add(10).log10().pow(game.galaxies[4]))
 }

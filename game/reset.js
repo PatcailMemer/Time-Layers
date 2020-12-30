@@ -29,11 +29,7 @@ function reset(layer) {
           if (inAnyGalChal()) {
             game.galaxies[game.galChal-1]=game.galaxies[game.galChal-1].add(1)
           } else {
-            if (game.PEU.includes(2)) {
-              game.starTypes=getStarGain(app.$data.overallSpeed.div(YEAR_IN_SECONDS))
-            } else {
-            game.starTypes=game.starTypes.add(1)
-            }
+            game.starTypes = game.PEU.includes(2) ? getStarGain(app.$data.overallSpeed.div(YEAR_IN_SECONDS)) : game.starTypes.add(1)
           }
         }
         game.starTypes=game.starTypes.max(game.bestStarTypes)
@@ -94,38 +90,24 @@ function reset(layer) {
 } 
 
 function getPrestige(layer) {
-  if (!canPrestige(layer)) {
-    return EN(0)
-  }
+  if (!canPrestige(layer)) return EN(0)
   switch (layer) {
     case 1:
-      if (inGalChal(2)&&game.spaceless) {
-        return EN(0)
-      }
-      if (inGalChal(5)&&game.spaceless) {
-        return EN(0)
-      }
-      if (inGalChal(3)) {
-        return EN(0)
-      }
-      if (game.spaceless) {
-        return game.spacetime.pow(1/6).div(10).times(1+game.achievement.includes(47)).floor()
-      }
+      if ((inGalChal(2) && game.spaceless) || (inGalChal(5) && game.spaceless) || (inGalChal(3))) return EN(0)
+      if (game.spaceless) return game.spacetime.pow(1/6).div(10).times(1+game.achievement.includes(47)).floor()
+
       return game.spacetime.pow(EN(game.SEU.includes(5)?1/5:1/6).add(game.galaxies[2].div(100))).div(10)
         .times(stinc(34)?Math.min(Math.max(game.spaceTimeFoamUpgrade.length-9,1),9):1)
         .times(game.spaceComp.gte(13)&&stinc(15)?game.spaceComp.minus(12).pow(stinc(18)?getSpacetimeCompEffect():1):1)
         .times(game.achievement.includes(26)?getNucleoLength().add(1):1)
         .times(game.perspectivePower.pow(5).max(1))
         .floor()
-      break
     case 2:
       return getStarGain(app.$data.overallSpeed.div(YEAR_IN_SECONDS)).max(game.bestStarTypes)
-      break
     case 3:
       return 1
     default:
       return EN(0)
-      break
   }
 }
 
@@ -133,19 +115,14 @@ const canPrestige = function(layer) {
   switch (layer) {
     case 1:
       return game.spacetime.gte(1e6)
-      break
     case 2:
       let starLevel = game.starTypes
-      if (inAnyGalChal()) {
-        starLevel = game.galaxies[game.galChal-1]
-      }
+      if (inAnyGalChal()) starLevel = game.galaxies[game.galChal-1]
       return app.$data.overallSpeed.div(YEAR_IN_SECONDS).gte(getStarTypeCost(starLevel))
-      break
     case 3:
       return game.starTypes.gte([16,20,24,26,28,30,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48][game.perspectivePoint.toNumber()])
     default:
       return false
-      break
   }
 }
 
@@ -158,20 +135,12 @@ function getStarTypeCost(x) {
 }
 
 function getStarGain(x) {
-  if (x.lt(1000)) {
-    return EN(0)
-  }
-  if (x.lt(1500)) {
-    return EN(1)
-  }
-  if (x.lt(2000)) {
-    return EN(2)
-  }
-  if (x.lt(3000)) {
-    return EN(3)
-  }
-  if (x.lt(5000)) {
-    return EN(4)
-  }
+  if (x.lt(1000)) return EN(0)
+  if (x.lt(1500)) return EN(1)
+  if (x.lt(2000)) return EN(2)
+  if (x.lt(3000)) return EN(3)
+  if (x.lt(5000)) return EN(4)
   return x.div(5000).logBase(2).add(5).floor()
+  //equivalent function for one line below, using ternary:
+  //return x.lt(1000) ? EN(0) : x.lt(1500) ? EN(1) : x.lt(2000) ? EN(2) : x.lt(3000) ? EN(3) : x.lt(5000) ? EN(4) : x.div(5000).logBase(2).add(5).floor()
 }

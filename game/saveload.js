@@ -28,9 +28,7 @@ function ENnuke(x) {
   for (saveCounter in x) {
     if ((typeof temp[saveCounter] == "object")&&(typeof temp[saveCounter].array != "undefined")&&(typeof temp[saveCounter].sign != "undefined")&&(typeof temp[saveCounter].layer != "undefined")) {
         temp[saveCounter]=ENify(x[saveCounter])
-    } else if (typeof temp[saveCounter] == "object") {
-        temp[saveCounter] = ENnuke(temp[saveCounter])
-    }
+    } else if (typeof temp[saveCounter] == "object") temp[saveCounter] = ENnuke(temp[saveCounter])
   }
   return temp
 }

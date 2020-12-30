@@ -5,13 +5,7 @@ const NUCLEO_UPGRADE_COST = [9e12,6e14,1e17,NaN]
 const NORMAL_ENERGY_UPGRADE_COST = [1e8, 5, 100, 1000]
 
 function canBuySEU(x) {
-  if (game.SEU.includes(x)) {
-    return false
-  }
-  if (game.spaceEnergy.gte(SPACE_ENERGY_UPGRADE_COST[x-1])) {
-    return true
-  }
-  return false
+  return !game.SEU.includes(x) && game.spaceEnergy.gte(SPACE_ENERGY_UPGRADE_COST[x-1])
 }
 
 function buySEU(x) {
@@ -22,13 +16,7 @@ function buySEU(x) {
 }
 
 function canBuyNEU(x) {
-  if (game.NEU.includes(x)) {
-    return false
-  }  
-  if (game.normalEnergy.gte(NORMAL_ENERGY_UPGRADE_COST[x-1])) {
-    return true
-  }
-  return false
+  return !game.NEU.includes(x) && game.normalEnergy.gte(NORMAL_ENERGY_UPGRADE_COST[x-1])
 }
 
 function buyNEU(x) {
