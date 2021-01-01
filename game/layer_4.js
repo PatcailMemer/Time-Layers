@@ -27,4 +27,5 @@ function getPerspectiveRate() {
   return game.spaceComp.add(1).pow(game.perspectivePoint.minus(1))
     .times(getSuperNovaEffect(3))
     .times(game.normalEnergy.add(10).log10().pow(game.galaxies[4]))
+    .times(game.PEU.includes(9)?1e10:1)
 }
