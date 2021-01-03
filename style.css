@@ -243,3 +243,10 @@ button:not(.tabButton){
   margin: auto
 }
 
+/* To make it clear that certain buttons are disabled due to conditionals,
+   style the button differently. */
+button:disabled,
+button[disabled] {
+  background-color: #3f3f3f;
+  color: #666666;
+}
