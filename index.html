@@ -220,7 +220,7 @@
             </div>
             <table class="center" style="margin-top:20px;margin-bottom:20px"><tr>
               <td><button class="squareMediumButton layer2" onclick="superNova(1)">Spatial Launch<br><br>Spatial Compressor is x{{getSuperNovaEffect(1).beautify(2)}}<br><br>Level: {{game.supernova[0]}}{{game.bestStarTypes.gte(40)?"+"+game.supernova[3]:""}}</button></td>
-              <td><button class="squareMediumButton layer2" onclick="superNova(2)" v-if="game.bestStarTypes.gte(30)">Spacetime Boost<br><br>Gain {{getSuperNovaEffect(2).beautify()}}x spacetime<br><br><br>Level: {{game.supernova[1]}}{{game.bestStarTypes.gte(40)?"+"+game.supernova[3]:""}}</button></td>
+              <td><button class="squareMediumButton layer2" onclick="superNova(2)" v-if="game.bestStarTypes.gte(30)" v-bind:disabled="(!game.achievement.includes(47) && (game.galChal > 0 && game.galChal < 4)) || game.spaceless">Spacetime Boost<br><br>Gain {{getSuperNovaEffect(2).beautify()}}x spacetime<br><br><br>Level: {{game.supernova[1]}}{{game.bestStarTypes.gte(40)?"+"+game.supernova[3]:""}}</button></td>
               <td><button class="squareMediumButton layer2" onclick="superNova(3)" v-if="game.bestStarTypes.gte(35)">Perspective Push<br><br>Gain {{getSuperNovaEffect(3).beautify()}}x perspective power<br><br>Level: {{game.supernova[2]}}{{game.bestStarTypes.gte(40)?"+"+game.supernova[3]:""}}</button></td>
               <td><button class="squareMediumButton layer2" onclick="superNova(4)" v-if="game.bestStarTypes.gte(40)">Everything Else<br><br>Gain {{getSuperNovaEffect(4)}} free levels of all previous supernovas<br>Level: {{game.supernova[3]}}</button></td>
               
