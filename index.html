@@ -23,8 +23,8 @@
     <script src="game/newvue.js" defer></script>
     <script src="game/saveload.js" defer></script>
     <script src="game/reset.js" defer></script>
-    <script src="game/toggle.js" defer></script>
-    <script src="game/challenge.js" defer></script>
+    <!--<script src="game/toggle.js" defer></script>
+    <script src="game/challenge.js" defer></script>-->
     <script src="game/stellarpedia.js" defer></script>
     <script src="game/layer_1.js" defer></script>
     <script src="game/layer_2.js" defer></script>
@@ -45,8 +45,8 @@
       <div v-if="tab == 1">
         <table class="center long" style="height:40px;margin:auto" v-if="!game.toggle.layerDisplay"><tr>
           <td style="height:40px"><button class="layer1 long" style="height:100%" v-on:click = "layertab = 1">Physical Layer</button></td>
-          <td style="height:40px"><button class="layer2 long" style="height:100%" v-on:click = "layertab = 2" v-if="game.stinc(21)||game.highestReset>=1">Energy Layer</button></td>
-          <td style="height:40px"><button class="layer3 long" style="height:100%" v-on:click = "layertab = 3" v-if="game.stinc(35)||game.highestReset>=2">Stellar Layer</button></td>
+          <td style="height:40px"><button class="layer2 long" style="height:100%" v-on:click = "layertab = 2" v-if="game.hasSTF(21)||game.highestReset>=1">Energy Layer</button></td>
+          <td style="height:40px"><button class="layer3 long" style="height:100%" v-on:click = "layertab = 3" v-if="game.hasSTF(35)||game.highestReset>=2">Stellar Layer</button></td>
           <td style="height:40px"><button class="layer4 long" style="height:100%" v-on:click = "layertab = 4" v-if="game.NEU.includes(2)||game.highestReset>=3">Perspective Layer</button></td>
         </tr></table>
         <button class="long layer1 layerbutton" v-on:click = "(layertab = layertab == 1 ? 0 : 1);move=1" v-if="game.toggle.layerDisplay">Physical Layer</button>
@@ -60,13 +60,13 @@
           <div v-if="layersubtab[0] == 1">
             <table class="long"><tbody>
               <tr>
-                <td v-if="game.stinc(31)&&!game.spaceless">
+                <td v-if="game.hasSTF(31)&&!game.spaceless">
                 You have <span class="blur">{{game.spaceFoam.beautify(2)}}</span>   meters of space foam<br>
                 Space Foam is a timeless quantity
                     <button class="layer1 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySpaceComp()">Perform a Spatial Compression<br><br>Cost: {{spaceCompCost}}</button>
                 Each spatial compression compresses space by {{spaceCompBase}}%<br>
                 Your {{game.spaceComp.beautify()}} spatial compression compresses spacetime by {{spaceCompEffect}}x
-                  <div v-if="game.spaceComp.gte(13)&&game.stinc(15)">The better formula also multiplies Space Energy by {{game.spaceComp.minus(12).pow(game.stinc(18)?getSpacetimeCompEffect():1).beautify()}}</div>
+                  <div v-if="game.spaceComp.gte(13)&&game.hasSTF(15)">The better formula also multiplies Space Energy by {{game.spaceComp.minus(12).pow(game.hasSTF(18)?getSpacetimeCompEffect():1).beautify()}}</div>
                   <table style="width: 370;margin:auto">
                     <tr>
                       <td><button v-bind:class="row1SpaceTimeUpgrade[0][0]" onclick="buySpaceTimeUpgrade(1,1)">Unlock Spacetime Foam<br><br>Cost: 2 space</button></td>
@@ -85,7 +85,7 @@
                     </tr>
                   </table>
                 </td>
-                <td v-if="game.stinc(11)">
+                <td v-if="game.hasSTF(11)">
                 You have <span class="blur">{{game.spacetime.beautify(game.galChal==1&&game.achievement.includes(37)?Infinity:2)}}</span>   meter-seconds of spacetime foam<br>
                 You are getting {{spacetime.rate.beautify(game.galChal==1&&game.achievement.includes(37)?6:2)}} spacetime foam per second
                     <button class="layer1 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySpaceTimeComp()">Perform a Spacetime Compression<br><br>Cost: {{spacetime.cost}}</button>
@@ -139,7 +139,7 @@
           </div>
           <div v-if="layersubtab[0] == 2">
             Your Nucleosynthesis Age is <span class="blur">{{game.nucleoTime.toTime()}}</span><br>
-            Nucleosynthesis of Deuterium Nuclei occurs between 2m and {{(EN(1200).times(game.SEU.includes(3)?spaceEnergyTimeMult():1).times(game.stinc(37)?getTempCompBase():1)).toTime()}}
+            Nucleosynthesis of Deuterium Nuclei occurs between 2m and {{(EN(1200).times(game.SEU.includes(3)?spaceEnergyTimeMult():1).times(game.hasSTF(37)?getTempCompBase():1)).toTime()}}
             <br><br>
             You have <span class="blur">{{nucleoLength().times(1000).beautify(2)}}</span>   mm of deuterium nuclei
             <br>This adds to your base Space Foam to make it longer
@@ -153,7 +153,7 @@
                     </table>
           </div>
         </div>
-        <button class="long layer2 layerbutton" v-on:click = "(layertab = layertab == 2 ? 0 : 2);move=2" v-if="(game.stinc(21)||game.highestReset>=1)&&game.toggle.layerDisplay">Energy Layer</button>
+        <button class="long layer2 layerbutton" v-on:click = "(layertab = layertab == 2 ? 0 : 2);move=2" v-if="(game.hasSTF(21)||game.highestReset>=1)&&game.toggle.layerDisplay">Energy Layer</button>
         <div v-if="layertab == 2">
           Multiplier to all above layers: x{{ timeLayerMult[1] }}<br>
           This layer is {{ timeLayerSpeed[1] }}x faster than real-time
@@ -239,7 +239,7 @@
             Type in a number to set up a maximum of which these autobuyers are going to work up to<br>Set the number to 0 to disable the autobuyer. Set the number to -1 if you want to remove the autobuyer's limit
           </div>
         </div>
-        <button class="long layer3 layerbutton" v-if="(game.stinc(35)||game.highestReset>=2)&&game.toggle.layerDisplay" v-on:click = "(layertab = layertab == 3 ? 0 : 3);move=3">Stellar Layer</button>
+        <button class="long layer3 layerbutton" v-if="(game.hasSTF(35)||game.highestReset>=2)&&game.toggle.layerDisplay" v-on:click = "(layertab = layertab == 3 ? 0 : 3);move=3">Stellar Layer</button>
         <div v-if="layertab == 3">
           Multiplier to all above layers: x{{ timeLayerMult[2] }}<br>
           This layer is {{ timeLayerSpeed[2] }}x faster than real-time
@@ -331,7 +331,7 @@
                     <button class="layer4 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySpaceComp()">Perform a Spatial Compression<br><br>Cost: {{spaceCompCost}}</button>
                 Each spatial compression compresses space by {{spaceCompBase}}%<br>
                 Your {{game.spaceComp.beautify()}} spatial compression compresses spacetime by {{spaceCompEffect}}x
-                  <div v-if="game.spaceComp.gte(13)&&game.stinc(15)">The better formula also multiplies Space Energy by {{game.spaceComp.minus(12).pow(game.stinc(18)?getSpacetimeCompEffect():1).beautify()}}</div>
+                  <div v-if="game.spaceComp.gte(13)&&game.hasSTF(15)">The better formula also multiplies Space Energy by {{game.spaceComp.minus(12).pow(game.hasSTF(18)?getSpacetimeCompEffect():1).beautify()}}</div>
                   <table style="width: 370;margin:auto">
                     <tr>
                       <td><button v-bind:class="row4Supercomp[0][0]" onclick="buySpaceTimeUpgrade(1,1)">Unlock Spacetime Foam<br><br>Cost: 2 space</button></td>

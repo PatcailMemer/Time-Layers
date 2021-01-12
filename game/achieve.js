@@ -1,5 +1,4 @@
 "use strict"
-
 const achieveData = [
   {
     unlockReq: () => game.highestReset>=0,
@@ -136,7 +135,6 @@ const achieveData = [
 ]
 
 let achieveRowCheck = 0
-
 function checkAchieve() {
   achieveRowCheck = ((achieveRowCheck+1)%(game.highestReset+1))
   let currentRow = achieveData[achieveRowCheck]

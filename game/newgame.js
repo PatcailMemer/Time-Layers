@@ -1,6 +1,6 @@
 "use strict"
 
-function newGame() {
+let newGame = () => {
   return {
     lastTick: Date.now(),
     universeAge: EN(0),
@@ -11,7 +11,7 @@ function newGame() {
     spaceComp: EN(0),
     spacetime: EN(0),
     spacetimeComp: EN(0),
-    stinc: stinc,
+    hasSTF: hasSTF,
     spaceEnergy: EN(0),
     highestReset: 0,
     SEU: [],
