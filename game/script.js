@@ -64,8 +64,8 @@ function loop(ms) {
   }
   
   app.$data.timeLayerSpeed[2]=overallSpeed.beautify(2)
-  overallSpeed=overallSpeed.times(inGalChal(3)?2:1).times(inGalChal(5)?1:1)
-  app.$data.timeLayerMult[2]=EN(inGalChal(3)?2:1).times(inGalChal(5)?1:1).beautify(2)
+  overallSpeed = overallSpeed.times(inGalChal(3) ? 2 : 1).times(inGalChal(5) ? 1 : 1)
+  app.$data.timeLayerMult[2] = EN(inGalChal(3) ? 2 : 1).times(inGalChal(5) ? 1 : 1).beautify(2)
   s = EN(ms/1000).times(overallSpeed)
   
   
@@ -129,11 +129,11 @@ function loop(ms) {
   }
   
   app.$data.timeLayerSpeed[1]=overallSpeed.beautify(2)
-  overallSpeed=overallSpeed.times(getSpaceEnergyTimeMult().times(getNormalEnergyTimeMult()))
-  app.$data.timeLayerMult[1]=getSpaceEnergyTimeMult().times(getNormalEnergyTimeMult()).beautify(2)
+  overallSpeed = overallSpeed.times(getSpaceEnergyTimeMult().times(getNormalEnergyTimeMult()))
+  app.$data.timeLayerMult[1] = getSpaceEnergyTimeMult().times(getNormalEnergyTimeMult()).beautify(2)
   s = EN(ms/1000).times(overallSpeed)
   
-  if (game.highestReset>=1&&game.SEU.includes(1)) game.nucleoTime=game.nucleoTime.add(s.times(1+game.SEU.includes(6)).times(1+game.SEU.includes(10)))
+  if (game.highestReset >= 1 && game.SEU.includes(1)) game.nucleoTime = game.nucleoTime.add(s.times(1 + game.SEU.includes(6)).times(1 + game.SEU.includes(10)))
   
   for (let i in app.$data.nucleoUp) {
       let ii = Number(i)+1
@@ -166,9 +166,9 @@ function loop(ms) {
     game.spaceFoam=game.spaceFoam.max(
       EN(1).add(getNucleoLength())
       .times(getSpaceCompEffect())
-      .times(hasSTF(24)&&(!inGalChal(2))?game.spaceEnergy.max(1):1)
-      .times(hasSTF(16)?game.timeFoam.sqrt().pow(getNormalEnergyRow2Mult()).max(1):1)
-    ).min(inGalChal(4)?game.normalEnergy:Infinity)
+      .times(hasSTF(24) ? suMults["u24"]() : 1)
+      .times(hasSTF(16) ? game.timeFoam.sqrt().pow(getNormalEnergyRow2Mult()).max(1) : 1) //
+    ).min(inGalChal(4) ? game.normalEnergy : Infinity)
   }
   
   app.$data.spaceCompCost = getSpaceCompCost().beautify(2)
@@ -181,10 +181,10 @@ function loop(ms) {
   app.$data.spacetime.cost=getSpaceTimeCost().beautify(2)
   app.$data.spacetime.effect=getSpacetimeCompEffect()
   
-  if (hasSTF(11)) game.spacetime = game.spacetime.add(suMults["u11"](s))
+  if (hasSTF(11)) game.spacetime = game.spacetime.add(getSpaceTimeRate().times(s))
   
   app.$data.timeLayerSpeed[0]=overallSpeed.beautify(2)
-  overallSpeed=overallSpeed.times(getTempCompEffect())
+  overallSpeed = overallSpeed.times(getTempCompEffect())
   app.$data.timeLayerMult[0]=getTempCompEffect().beautify(2)
   s = EN(ms/1000).times(overallSpeed)
   
@@ -194,7 +194,7 @@ function loop(ms) {
   app.$data.universeAge = game.universeAge.toTime()
   app.$data.overallSpeed = overallSpeed
   
-  if (game.galChal!=0&&canPrestige(2)) game.galaxies[game.galChal-1]=game.galaxies[game.galChal-1].add(1)
+  if (game.galChal != 0 && canPrestige(2)) game.galaxies[game.galChal - 1] = game.galaxies[game.galChal - 1].add(1)
   
   checkAchieve()
   if (app.$data.move !== 0) {

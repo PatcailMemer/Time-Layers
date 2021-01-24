@@ -21,13 +21,19 @@ function buyNEU(x) {
   }
 }
 
-let getNucleoLength = () => game.nucleoTime.max(120).min(EN(1200)
-    .times(game.SEU.includes(3) ? getSpaceEnergyTimeMult() : 1)
-    .times(hasSTF(37) ? getTempCompBase() : 1)).minus(120)
-    .pow(1+0.5*game.SEU.includes(6))
-    .pow(1+game.SEU.includes(10))
-    .div(1000)
-    .minus(game.PEU.includes(3) ? 0 : game.spentNucleo)
+function getNucleoLength() {
+  let neoTime = EN(1200)
+  if (game.SEU.includes(3)) neoTime = neoTime.times(getSpaceEnergyTimeMult())
+  if (hasSTF(37)) neoTime = neoTime.times(getTempCompBase())
+
+  let neoLen = game.nucleoTime.max(120).min(neoTime).minus(120)
+
+  if (game.SEU.includes(6)) neoLen = neoLen.pow(1.5)
+  if (game.SEU.includes(10)) neoLen = neoLen.pow(2)
+  neoTime = neoTime.div(1000)
+  if (!game.PEU.includes(3)) neoLen = neoLen.minus(game.spentNucleo)
+  return neoLen
+}
 
 function getSpaceEnergyTimeMult() {
   if (inGalChal(1)||inGalChal(3)) return EN(1)
@@ -47,13 +53,13 @@ function getSpaceEnergyRow1Mult() {
   return capped
 }
 
-let canBuyNucleoUp = x => !game.nucleoUps.includes(x) && !(x==2 && game.spacetimeComp.lt(7)) && getNucleoLength().gte(NUCLEO_UPGRADE_COST[x-1])
+let canBuyNucleoUp = x => !game.nucleoUps.includes(x) && !(x === 2 && game.spacetimeComp.lt(7)) && getNucleoLength().gte(NUCLEO_UPGRADE_COST[x-1])
 
 function buyNucleoUp(x) {
   if (canBuyNucleoUp(x)) {
-    game.spentNucleo=game.spentNucleo.add(NUCLEO_UPGRADE_COST[x-1])
+    game.spentNucleo = game.spentNucleo.add(NUCLEO_UPGRADE_COST[x-1])
     game.nucleoUps.push(x)
-    if (x==2) game.spacetimeComp=game.spacetimeComp.minus(7)
+    if (x === 2) game.spacetimeComp = game.spacetimeComp.minus(7)
   }
 }
 
@@ -61,7 +67,7 @@ function getNucleoEffect(x) {
   switch(x) {
     case 1: return getNucleoLength().times(1000).add(1).log10().pow(2).div(300).add(1)
     case 2: return getNucleoLength().times(1000).add(1).pow(1/4)//.pow(game.galaxies[0].add(1))
-    case 3: return 1+(game.nucleoUps.includes(3)&&game.galChal==0&&!game.spaceless)
+    case 3: return 1 + (game.nucleoUps.includes(3) && game.galChal === 0 && !game.spaceless)
   }
 }
 
@@ -73,7 +79,7 @@ function getNormalEnergyTimeMult() {
 
 function getNormalEnergyRow2Mult() {
   let capped = EN(1)
-  if (game.NEU.includes(4)&&game.normalEnergy.gte(3)) capped = EN(1).times(game.normalEnergy.logBase(3).sqrt())
+  if (game.NEU.includes(4) && game.normalEnergy.gte(3)) capped = EN(1).times(game.normalEnergy.logBase(3).sqrt())
   return capped
 }
 
@@ -81,8 +87,8 @@ function superNova(x) {
   if (game.starTypes.gte(1)) {
     if (game.bestStarTypes.gt(getSupernovaSum())) {
       let restAllow = game.bestStarTypes.minus(getSupernovaSum()).min(game.starTypes)
-      game.starTypes=game.starTypes.minus(game.supernovaMode==1&&game.achievement.includes(47)?restAllow:1)
-      game.supernova[x-1]=game.supernova[x-1].add(game.supernovaMode==1&&game.achievement.includes(47)?restAllow:1)
+      game.starTypes = game.starTypes.minus(game.supernovaMode === 1 && game.achievement.includes(47) ? restAllow:1)
+      game.supernova[x - 1] = game.supernova[x - 1].add(game.supernovaMode === 1 && game.achievement.includes(47) ? restAllow : 1)
     }
   }
 }
@@ -92,7 +98,7 @@ function getSuperNovaEffect(x) {
     case 1:
       return EN(1).add(game.supernova[0].add(getSuperNovaEffect(4)).times(0.1))
     case 2:
-      if (game.spaceless || (!game.achievement.includes(47)&&(inGalChal(1)||inGalChal(2)||inGalChal(3)))) return EN(1)
+      if (game.spaceless || (!game.achievement.includes(47) && (inGalChal(1) || inGalChal(2) || inGalChal(3)))) return EN(1)
       return EN(1e10).pow(game.supernova[1].add(getSuperNovaEffect(4)))
     case 3:
       return EN(2).add(game.galaxies[3]).pow(game.supernova[2].add(getSuperNovaEffect(4)))

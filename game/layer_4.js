@@ -15,6 +15,10 @@ function buySuperTempComp() {
 }
 let getSuperTempCompCost = () => EN(20).times(EN(1.5).pow(game.superComp.temp.pow(1.5))).round()
 
-let getPerspectiveRate = () => game.spaceComp.add(1).pow(game.perspectivePoint.minus(1))
-    .times(getSuperNovaEffect(3))
-    .times(game.normalEnergy.add(10).log10().pow(game.galaxies[4]))
+function getPerspectiveRate() {
+  let PeR = game.spaceComp.add(1)
+  PeR = PeR.pow(game.perspectivePoint.minus(1))
+  PeR = PeR.times(getSuperNovaEffect(3))
+  PeR = PeR.times(game.normalEnergy.add(10).log10().pow(game.galaxies[4]))
+  return PeR
+}

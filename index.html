@@ -66,7 +66,7 @@
                     <button class="layer1 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySpaceComp()">Perform a Spatial Compression<br><br>Cost: {{spaceCompCost}}</button>
                 Each spatial compression compresses space by {{spaceCompBase}}%<br>
                 Your {{game.spaceComp.beautify()}} spatial compression compresses spacetime by {{spaceCompEffect}}x
-                  <div v-if="game.spaceComp.gte(13)&&game.hasSTF(15)">The better formula also multiplies Space Energy by {{game.spaceComp.minus(12).pow(game.hasSTF(18)?getSpacetimeCompEffect():1).beautify()}}</div>
+                  <div v-if="game.spaceComp.gte(13)&&game.hasSTF(15)">The better formula also multiplies Space Energy by {{game.spaceComp.minus(12).pow(game.hasSTF(18) ? getSpacetimeCompEffect() : 1).beautify()}}</div>
                   <table style="width: 370;margin:auto">
                     <tr>
                       <td><button v-bind:class="row1SpaceTimeUpgrade[0][0]" onclick="buySpaceTimeUpgrade(1,1)">Unlock Spacetime Foam<br><br>Cost: 2 space</button></td>
@@ -331,7 +331,7 @@
                     <button class="layer4 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySpaceComp()">Perform a Spatial Compression<br><br>Cost: {{spaceCompCost}}</button>
                 Each spatial compression compresses space by {{spaceCompBase}}%<br>
                 Your {{game.spaceComp.beautify()}} spatial compression compresses spacetime by {{spaceCompEffect}}x
-                  <div v-if="game.spaceComp.gte(13)&&game.hasSTF(15)">The better formula also multiplies Space Energy by {{game.spaceComp.minus(12).pow(game.hasSTF(18)?getSpacetimeCompEffect():1).beautify()}}</div>
+                  <div v-if="game.spaceComp.gte(13)&&game.hasSTF(15)">The better formula also multiplies Space Energy by {{game.spaceComp.minus(12).pow(game.hasSTF(18) ? getSpacetimeCompEffect() : 1).beautify()}}</div>
                   <table style="width: 370;margin:auto">
                     <tr>
                       <td><button v-bind:class="row4Supercomp[0][0]" onclick="buySpaceTimeUpgrade(1,1)">Unlock Spacetime Foam<br><br>Cost: 2 space</button></td>

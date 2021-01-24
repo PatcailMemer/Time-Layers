@@ -13,9 +13,8 @@ function load(saveData) {
     }
     
     game=ENnuke(game)
-     // fixed? i think?
-  } //Yes, I copy and pasted it from OM code lol
-}// well now it works i guess poggers now time to clear my save data
+  } 
+}
 
 function ENnuke(x) {
   let saveCounter
