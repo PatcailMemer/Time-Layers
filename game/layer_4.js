@@ -20,5 +20,6 @@ function getPerspectiveRate() {
   PeR = PeR.pow(game.perspectivePoint.minus(1))
   PeR = PeR.times(getSuperNovaEffect(3))
   PeR = PeR.times(game.normalEnergy.add(10).log10().pow(game.galaxies[4]))
+  if (game.PEU.includes(9)) PeR = PeR.times(1e10)
   return PeR
 }
