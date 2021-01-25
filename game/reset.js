@@ -83,7 +83,9 @@ const canPrestige = function(layer) {
       let starLevel = game.starTypes
       if (inAnyGalChal()) starLevel = game.galaxies[game.galChal-1]
       return app.$data.overallSpeed.div(YEAR_IN_SECONDS).gte(getStarTypeCost(starLevel))
-    case 3:  return game.starTypes.gte([16,20,24,26,28,30,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48][game.perspectivePoint.toNumber()])
+    case 3: 
+      if (game.perspectivePoint.toNumber() <= 6) return game.starTypes.gte([16,20,24,26,28,30,32][game.perspectivePoint.toNumber()])
+      return game.starTypes.gte(26 + game.perspectivePoint.toNumber())
     default: return false
   }
 }

@@ -90,7 +90,7 @@ const suMults = {
 }
 
 function hasSTF(x, thing=false) {
-  if (game.spaceless && (!thing) && x !== 1 && x <= 9) return false
+  if (game.spaceless && (!thing) && x !== 11 && x <= 19) return false
   return game.spaceTimeFoamUpgrade.includes(x+"")
 }
 

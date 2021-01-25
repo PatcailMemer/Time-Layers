@@ -216,5 +216,5 @@ let onOff = (x) => game.toggle[x] ? "ON" : "OFF"
 /*
 document.getElementsByClassName("layerbutton")[2].addEventListener("click",x =>
   {window.scrollTo(0, document.getElementsByClassName("layerbutton")[2].getBoundingClientRect().top-50);}
-)
+) //what the fuck is this?
 */
