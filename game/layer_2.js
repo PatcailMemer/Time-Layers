@@ -36,7 +36,7 @@ function getNucleoLength() {
 }
 
 function getSpaceEnergyTimeMult() {
-  if (inGalChal(1)||inGalChal(3)) return EN(1)
+  if (inGalChal(1,3)) return EN(1)
   let capped = game.spaceEnergy.min(2).add(1)
   if (game.SEU.includes(3)&&game.spaceEnergy.gte(3)) capped = EN(3).times(game.spaceEnergy.logBase(3).sqrt())
   if (game.SEU.includes(7)) capped = capped.times(3)
@@ -98,7 +98,7 @@ function getSuperNovaEffect(x) {
     case 1:
       return EN(1).add(game.supernova[0].add(getSuperNovaEffect(4)).times(0.1))
     case 2:
-      if (game.spaceless || (!game.achievement.includes(47) && (inGalChal(1) || inGalChal(2) || inGalChal(3)))) return EN(1)
+      if (game.spaceless || (!game.achievement.includes(47) && (inGalChal(1,2,3)))) return EN(1)
       return EN(1e10).pow(game.supernova[1].add(getSuperNovaEffect(4)))
     case 3:
       return EN(2).add(game.galaxies[3]).pow(game.supernova[2].add(getSuperNovaEffect(4)))

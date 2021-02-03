@@ -357,7 +357,7 @@
                 You have <span class="blur">{{game.tempComp.beautify()}}</span>   Temporal Compressors<br>
                   <button class="layer4 squareMediumButton" style="margin-top: 30px;margin-bottom:20px" onclick="buySuperTempComp()">Perform a Temporal Supercompress<br><br>Need: {{superComp.tempCost().beautify()}} compressors</button>
                   <div v-if="game.superComp.temp.gte(1)||game.highestReset>=4">
-                Your {{game.superComp.temp.beautify()}} temporal supercompressor yields {{inAnyGalChal()?"0.00":game.superComp.temp.beautify(2)}} free temporal compressors in non-galaxies
+                Your {{game.superComp.temp.beautify()}} temporal supercompressor yields {{inGalChal()?"0.00":game.superComp.temp.beautify(2)}} free temporal compressors in non-galaxies
                   <table style="width: 370;margin:auto" v-if="false">
                     <tr>
                       <td><button v-bind:class="row4Supercomp[2][0]" onclick="buySpaceTimeUpgrade(3,1)">Unlock Space Foam<br><br>Cost: 200 Time</button></td>

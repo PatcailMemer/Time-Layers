@@ -28,19 +28,28 @@ function getStarEffect() {
   return stellarBase.pow(stellarPow)
 }
 
-//Challenge
-let inGalChal = x => x === game.galChal
+//Challenges
+function inGalChal(...x) { 
+  /*
+    This function will detect all challenges given. 
+    if no args are given, then it will simply return if we are actually in a challenge.
+  */ 
+  if (!x[0]) {
+      return 0 !== game.galChal
+  }
+  return x.includes(game.galChal)
+}
 
 let inAnyGalChal = () => 0 !== game.galChal
 
 let enterGalChal = x => {
-  if (!inAnyGalChal()) {
+  if (!inGalChal()) {
     reset(2)
     game.galChal = x
   }
 }
 let exitGalChal = () => {
-  if (inAnyGalChal()) {
+  if (inGalChal()) {
     reset(2)
     game.galChal = 0
   }

@@ -171,7 +171,7 @@ function buyTempComp() {
 function getTempCompEffect() {
   let TCExp = caplog10(game.tempComp).min(15)
   TCExp = TCExp.add(caplog10(getSpacetimeCompEffect()))
-  if (!inAnyGalChal()) TCExp = TCExp.add(game.superComp.temp)
+  if (!inGalChal()) TCExp = TCExp.add(game.superComp.temp)
 
   return getTempCompBase().pow(TCExp)
 }

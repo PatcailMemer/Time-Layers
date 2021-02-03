@@ -19,7 +19,7 @@ function reset(layer) {
         break
       case 2:
         if (canPrestige(2)) {
-          if (inAnyGalChal()) game.galaxies[game.galChal-1]=game.galaxies[game.galChal-1].add(1)
+          if (inGalChal()) game.galaxies[game.galChal-1]=game.galaxies[game.galChal-1].add(1)
           else game.starTypes = game.PEU.includes(2) ? getStarGain(app.$data.overallSpeed.div(YEAR_IN_SECONDS)) : game.starTypes.add(1)
         }
         game.starTypes=game.starTypes.max(game.bestStarTypes)
@@ -62,7 +62,7 @@ function getPrestige(layer) {
   if (!canPrestige(layer)) return EN(0)
   switch (layer) {
     case 1:
-      if ((inGalChal(2) && game.spaceless) || (inGalChal(5) && game.spaceless) || (inGalChal(3))) return EN(0)
+      if ((inGalChal(2,5) && game.spaceless) || (inGalChal(3))) return EN(0)
       if (game.spaceless) return game.spacetime.pow(1/6).div(10).times(1+game.achievement.includes(47)).floor()
       return game.spacetime.pow(EN(game.SEU.includes(5)?1/5:1/6).add(game.galaxies[2].div(100))).div(10)
         .times(hasSTF(34) ? suMults["u34"]() : 1)
@@ -81,7 +81,7 @@ const canPrestige = function(layer) {
     case 1: return game.spacetime.gte(1e6)
     case 2:
       let starLevel = game.starTypes
-      if (inAnyGalChal()) starLevel = game.galaxies[game.galChal-1]
+      if (inGalChal()) starLevel = game.galaxies[game.galChal-1]
       return app.$data.overallSpeed.div(YEAR_IN_SECONDS).gte(getStarTypeCost(starLevel))
     case 3: 
       if (game.perspectivePoint.toNumber() <= 6) return game.starTypes.gte([16,20,24,26,28,30,32][game.perspectivePoint.toNumber()])

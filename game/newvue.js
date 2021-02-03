@@ -49,7 +49,7 @@ function newVue() {
       superComp: {
         tempCost: getSuperTempCompCost
       },
-      inAnyGalChal() {return 0 !== game.galChal},
+      inGalChal() {return 0 !== game.galChal},
       getPerspectiveRate: getPerspectiveRate,
       PERSPECTIVE_REQ: [16,20,24,26,28,30,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48],
       getStarEffect: getStarEffect,
