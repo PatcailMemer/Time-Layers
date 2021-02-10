@@ -1,5 +1,4 @@
 "use strict"
-
 const achieveData = [
   {
     unlockReq: () => game.highestReset>=0,
@@ -29,7 +28,7 @@ const achieveData = [
       "Have a 1 week old universe",
       "Double your base spacefoam amount",
       "Have 256m of space, 65536s of time, and 1677716 m*s of spacetime",
-      "Reach a kilometer of space foam REWARD: Gain 10x more spacetime foam",
+      "Reach a kilometer of space foam REWARD: Multiply the effect of the 4th Space upgrade by 10.",
       "Buy all of the row 1 upgrades REWARD: Unlock the second row of upgrades",
       "Have exactly 9 of each compressor REWARD: Boost Spatial Compressor by 9%",
     ]
@@ -136,7 +135,6 @@ const achieveData = [
 ]
 
 let achieveRowCheck = 0
-
 function checkAchieve() {
   achieveRowCheck = ((achieveRowCheck+1)%(game.highestReset+1))
   let currentRow = achieveData[achieveRowCheck]

@@ -11,17 +11,11 @@ body {
 
 
 
-.long {
-  width:100%;
-}
+.long { width:100%;}
 
-.none {
-  display: none !important
-}
+.none { display: none !important }
 
-.block {
-  display: block
-}
+.block { display: block }
 
 .bigblur {
   text-shadow: 5px 5px 5px #ffffff;
@@ -141,10 +135,7 @@ button:not(.tabButton){
   justify-content: center;
   align-items: center;
 }
-#notifs {
-  float: right;
-  
-}
+#notifs { float: right; }
 
 .squareMediumButton {
   width: 150px;
@@ -223,23 +214,13 @@ button:not(.tabButton){
   z-index:5;
 }
 
-.green {
-  background: green !important
-}
+.green { background: green !important }
 
-.grey {
-  background:grey
-}
+.grey { background:grey }
 
-.darkgreen {
-  background: darkgreen;
-}
+.darkgreen { background: darkgreen; }
 
-.darkgrey {
-  background: dimgray
-}
+.darkgrey { background: dimgray }
 
-.center {
-  margin: auto
-}
+.center { margin: auto }
 

@@ -8,19 +8,13 @@ function load(saveData) {
   if (typeof saveData != "undefined") {
     game=newGame()
     for (let thing in saveData) {
-      if (thing=="toggle") {
-        for (let pog in saveData[thing]) {
-          game[thing][pog]=saveData[thing][pog]
-        }
-      } else {
-        game[thing]=saveData[thing]
-      }
+      if (thing=="toggle") for (let pog in saveData[thing]) game[thing][pog]=saveData[thing][pog]
+      else game[thing]=saveData[thing]
     }
     
     game=ENnuke(game)
-     // fixed? i think?
-  } //Yes, I copy and pasted it from OM code lol
-}// well now it works i guess poggers now time to clear my save data
+  } 
+}
 
 function ENnuke(x) {
   let saveCounter
